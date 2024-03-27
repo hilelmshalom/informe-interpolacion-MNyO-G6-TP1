@@ -1,0 +1,229 @@
+\documentclass[12pt,a4]{article} %[font size, tamano de hoja]{Tipo de documento}
+
+\usepackage[left=1.8cm,right=1.8cm,top=32mm,columnsep=20pt]{geometry}
+
+\usepackage[utf8]{inputenc} %Formato de codificación
+\usepackage[spanish, es-tabla, es-nodecimaldot]{babel}
+\usepackage{amsmath} %paquete para escribir ecuaciones matemáticas
+\usepackage{float} %Para posicionar figuras
+\usepackage{graphicx} %Para poder poner figuras
+\usepackage{hyperref} %Permite usar hipervínculos 
+\usepackage{multicol} %Para hacer doble columna
+\usepackage[sorting=none]{biblatex} %Imports biblatex package. To cite use \cite{reference_label}
+\addbibresource{main.bib} %Import the bibliography file
+
+
+
+\title{Métodos de interpolaciones y aproximaciones: \newline usos analíticos y prácticos}
+\author{Hilel y Nallib\\ [2mm] %\\ para nueva línea
+\small Universidad de San Andrés, Victoria, Argentina}
+\date{1er Semestre 2024}
+% Tamanos de letra: 
+% \tiny	
+% \scriptsize
+% \footnotesize
+% \small	
+% \normalsize	
+% \large	
+% \Large	
+% \LARGE	
+% \huge	
+% \Huge
+
+
+%Todo lo que está antes de begin{document} es el preámbulo
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+    Para la cátedra de Métodos Numéricos y Optimización estudiamos como los conceptos matemáticos que teníamos naturalizados en 
+\end{abstract}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+\section{Introducción}
+
+\textit{Esta sección detalla lo que se va a realizar sin contar el resultado final. Se predispone al lector a saber con que se va a topar}\\
+
+En el ámbito de la resolución de problemas matemáticos y computacionales, los métodos numéricos desempeñan un papel fundamental al proporcionar herramientas eficientes y precisas para aproximarse a soluciones de ecuaciones y funciones que no se pueden resolver de manera exacta. En este trabajo, exploraremos algunos de estos métodos, centrándonos en el polinomio de Lagrange, los splines cúbicos y sus respectivas matrices asociadas, así como sus ventajas, desventajas y casos de uso.
+
+El polinomio de Lagrange es una herramienta poderosa utilizada para interpolar una función a través de un conjunto discreto de puntos. Exploraremos su formulación y su aplicación práctica, junto con el fenómeno del error de oscilaciones asociado que puede surgir al usar este método de interpolación.
+
+Los splines cúbicos, por otro lado, ofrecen una técnica más sofisticada para la interpolación, particularmente útil cuando se requiere una suavidad adicional en la curva interpolada. Analizaremos la estructura de la matriz spline y su influencia en la precisión y estabilidad de este método.
+
+Además, examinaremos los pros y los contras tanto del polinomio de Lagrange como de los splines cúbicos, evaluando su rendimiento en diferentes situaciones y destacando los escenarios en los que cada uno brinda resultados óptimos.
+
+\subsection{Polinomio de Lagrange y Error de Oscilaciones}
+ 
+\textit{El polinomio de Lagrange es una técnica de interpolación ampliamente utilizada que permite aproximar una función a través de un conjunto de puntos dados. Sin embargo, su aplicación puede estar sujeta a oscilaciones no deseadas, especialmente en casos de interpolación de alta frecuencia. Discutiremos cómo estas oscilaciones afectan la precisión y la estabilidad de la aproximación. }
+
+\subsection{Splines Cúbicos y Matriz Asociada}
+
+Los splines cúbicos son una alternativa más avanzada para la interpolación, que ofrece una mayor suavidad en la curva interpolada al unir polinomios de tercer grado entre puntos de control. Analizaremos la construcción de la matriz spline y su importancia en la generación de curvas interpoladas precisas y continuas.
+
+\subsection{Pros y Contras de los Métodos}
+
+Compararemos los beneficios y las limitaciones del polinomio de Lagrange y los splines cúbicos en términos de precisión, estabilidad computacional y complejidad algorítmica. Esto permitirá una comprensión más profunda de cuándo y por qué se prefiere uno sobre el otro en diversas aplicaciones numéricas.
+
+\subsection{Casos de Uso}
+
+Finalmente, exploraremos casos específicos donde el polinomio de Lagrange o los splines cúbicos son más adecuados, teniendo en cuenta las características de los datos disponibles y los requisitos de interpolación.
+
+Al comprender estos conceptos y métodos numéricos, estaremos mejor equipados para abordar una variedad de problemas de interpolación y aproximación en el ámbito de la ingeniería, la ciencia computacional y otras disciplinas relacionadas.
+
+Con esta introducción, establecemos el escenario para una exploración más profunda de los métodos numéricos mencionados y su aplicación en la resolución de problemas prácticos.
+
+\section{Efecto del número y posición de los puntos de interpolación}
+
+\textit{En esta sección se analizará cómo varía la calidad de la interpolación en función de la cantidad y posición de los puntos de interpolación. Se compararán los resultados obtenidos con el polinomio de Lagrange, de Lagrange usando Chebyshev y splines cúbicos.}
+
+\subsection{Polinomio de Lagrange}
+
+El polinomio de Lagrange es un método de interpolación que permite aproximar una función a través de un conjunto discreto de puntos. Sin embargo, este método puede verse afectado por el fenómeno de las oscilaciones, especialmente en casos de interpolación de alta frecuencia. Para analizar cómo varía la calidad de la interpolación en función de la cantidad y posición de los puntos de interpolación, utilizaremos el polinomio de Lagrange y evaluaremos su rendimiento en diferentes escenarios.
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 1: pruebas del polinomio de Lagrange con diferentes cantidades de puntos.}
+    \label{graf1}
+\end{figure}
+
+Como se puede apreciar en la figura \ref{graf1}, el polinomio de Lagrange puede experimentar oscilaciones significativas en la interpolación de funciones de alta frecuencia, lo que puede afectar la precisión y la estabilidad de la aproximación.
+
+\subsection{Polinomio de Lagrange usando Chebyshev}
+
+Para mitigar el efecto de las oscilaciones en el polinomio de Lagrange, se puede utilizar una técnica alternativa que involucra el uso de puntos de interpolación de Chebyshev. Los puntos de Chebyshev están distribuidos de manera no uniforme en el intervalo de interpolación y pueden ayudar a reducir las oscilaciones no deseadas en la aproximación.
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 2: pruebas del polinomio de Lagrange usando Chebyshev con diferentes cantidades de puntos.}
+    \label{graf2}
+\end{figure}
+
+Como se puede observar en la figura \ref{graf2}, el uso de puntos de Chebyshev puede ayudar a reducir las oscilaciones en la interpolación y mejorar la calidad de la aproximación en comparación con el polinomio de Lagrange estándar.
+
+\subsection{Splines Cúbicos}
+
+Los splines cúbicos son una técnica de interpolación más avanzada que ofrece una mayor suavidad en la curva interpolada al unir polinomios de tercer grado entre puntos de control. Para evaluar cómo varía la calidad de la interpolación en función de la cantidad y posición de los puntos de interpolación, utilizaremos splines cúbicos y analizaremos su rendimiento en diferentes escenarios.
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 3: pruebas de splines cúbicos con diferentes cantidades de puntos.}
+    \label{graf3}
+\end{figure}
+
+Como se puede apreciar en la figura \ref{graf3}, los splines cúbicos ofrecen una interpolación suave y continua, lo que puede resultar en una aproximación de mayor calidad en comparación con el polinomio de Lagrange y el polinomio de Lagrange usando Chebyshev.
+
+\subsection{Comparación de Métodos}
+
+Para comparar los métodos de interpolación utilizados en este análisis, se presentará un gráfico comparativo que muestra la relación entre la cantidad de puntos de interpolación y el error de interpolación para el polinomio de Lagrange, el polinomio de Lagrange usando Chebyshev y los splines cúbicos.
+
+gráfico comparativo entre los 3 métodos de la relación entre la cantidad de puntos y el error de interpolación. # NOTA PARA AGREGAR GRÁFICO
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 4: comparación del error de interpolación entre el polinomio de Lagrange, el polinomio de Lagrange usando Chebyshev y los splines cúbicos.}
+    \label{graf4}
+\end{figure}
+
+Como se puede observar en la figura \ref{graf4}, los splines cúbicos presentan un menor error de interpolación en comparación con el polinomio de Lagrange y el polinomio de Lagrange usando Chebyshev, especialmente en casos de interpolación de alta frecuencia. Esto destaca la importancia de elegir el método de interpolación adecuado según las características de los datos y los requisitos de aproximación. En las siguientes pruebas se utilizará el método de splines cúbicos ya que es el único método el cual su error baja al aumentar la cantidad de puntos dados. Además en general siempre tiene menor error que los otros métodos.
+
+\subsection{Interpolando una función de dos variables}
+
+\textit{En esta sección se analizará cómo se puede extender la interpolación a funciones de dos variables. Se utilizará el método de splines cúbicos para aproximar una función de dos variables y se comparará su error en relación con la cantidad de puntos de dados. Finalmente, se llegará al mínimo número de puntos en dónde el error se mantiene en un punto razonable.} # NO ME GUSTA COMO REDSCTE ESTO
+
+\subsection{Función original}
+
+Para extender la interpolación a funciones de dos variables, consideraremos una función que queremos aproximar, REFERENCIA A LA FUNCION DE 2 VAR, a través de un conjunto discreto de puntos $(x_i, y_i, f(x_i, y_i))$. Utilizaremos el método de splines cúbicos para aproximar esta función y evaluaremos su rendimiento en función de la cantidad de puntos de interpolación. A continuación, se presentará la función original que queremos aproximar:
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 5: de la función original de dos variables.}
+    \label{graf5}
+\end{figure}
+
+\subsection{Interpolación con splines cúbicos}
+
+Para aproximar la función de dos variables, utilizaremos el método de splines cúbicos y evaluaremos su rendimiento en función de la cantidad de puntos de interpolación. A continuación, se presentará el resultado de la interpolación con splines cúbicos y se comparará con la función original. Para esto, aproximamos los puntos de la coordenada $x$ e $y$ cómo funciónes dadaas por $t$ (el tiempo). Con esto, se obtienen dos funciones $x_1(t)$ y $x_2(t)$, las cuales se utilizan para interpolar la función de dos variables. Además comparamos el número de puntos que necesitamos para que la aproximación se parezca a la función original.
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 6: comparacion de la función interpolada con diferentes cantidades de puntos.}
+    \label{graf6}
+\end{figure}
+
+Al analizar la figura \ref{graf6}, podemos observar que la interpolación con splines cúbicos ofrece una aproximación suave y continua de la función de dos variables, lo que puede resultar en una representación precisa de la misma. Además, se puede apreciar cómo el error de interpolación disminuye a medida que aumenta la cantidad de puntos de interpolación, lo que destaca la importancia de elegir la cantidad adecuada de puntos para obtener una aproximación óptima. En los últimos 2 cuadros podemos ver cómo con 15 puntos el gráfico visualmente es muy parecido al original \ref{graf5} y con 20 puntos es casi idéntico.
+
+\subsection{Error de interpolación}
+
+Para evaluar el error de interpolación en función de la cantidad de puntos de interpolación, presentaremos un gráfico que muestra la relación entre el error de interpolación y la cantidad de puntos utilizados en la aproximación con splines cúbicos.
+
+\begin{figure}
+    \centering
+    % código para incluir el gráfico aquí
+    \caption{Gráfico 7: error de interpolación en función de la cantidad de puntos de interpolación.}
+    \label{graf7}
+\end{figure}
+
+Como se puede observar en la figura \ref{graf7}, el error de interpolación disminuye a medida que aumenta la cantidad de puntos de interpolación, lo que indica que la aproximación con splines cúbicos mejora con una mayor densidad de puntos. Sin embargo, es importante tener en cuenta que el error de interpolación puede estabilizarse después de cierto número de puntos, lo que sugiere que agregar más puntos no necesariamente conducirá a una mejora significativa en la aproximación. En este caso podemos determinar a simple vista que un buen número de puntos a utilizar sería entre 20 y 30 ya que el error se mantiene en un punto razonable sin necesitar mucho poder de procesamiento. De igual manera eso lo va a determinar la necesidad en la situación dónde se esté utilizando este método, si se requiere un error más pequeño se utilizarán más puntos.
+
+\section{Construcción de trayectoria}
+
+En esta sección se analizará el uso de distintos métodos de interpolación para aproximar una trayectoria dados algunos puntos de la misma. Se tendrá en cuenta su error comparado con la trayectoria real. Finalmente, el método elegido será utilizado para interpolar una segunda trayectoria la cual será utilizada para hallar el punto en donde ambas se intersecan.
+
+\subsection{Método elegido}
+
+Como recurso principal se nos entregó un archivo .csv (hacer referencia a el archivo en el apéndice) que contiene algunos puntos $x$ e $y$ de la trayectoria de un vehículo en un tiempo $t$. Los valores de $x$ e $y$ ambos están dados por funciones desconocidas, las llamaremos $x_1(t)$ y $x_2(t)$, respectivamente.
+
+\subsection{Interpolación por Splines}
+
+
+
+\section{Resultados y análisis}
+
+\textit{En esta sección proponemos figuras, gráficos, tabla comparativas. Todas las tablas y gráficos deben tener rótulos. Las tablas y gráficos deben convencer al lector sobre los resultados obtenidos. En esta sección es donde se logra determinar que método funciona mejor gracias al experimento descripto previamente.}\\
+
+En la figura \ref{iteraciones} se presenta el valor de la aproximación $p_n$ de
+cada método en función del número de iteración $n$. El método de la bisección
+necesita 8 iteraciones, el de punto fijo 11, y el nuevo método solo 2.
+
+\begin{figure}[H] %'H' para ubicar figura justo donde está en el .tex. 'h' para ubicarla aproximadamente donde está en .tex. 't'('b') para ubicarla al comienzo (final) de pag. 
+    \centering %para que esté centrada
+    \includegraphics[width=0.5\textwidth]{metodos.png} %el ancho será el 50% del ancho del texto.
+    \caption{Aproximación $p_n$ obtenida en función del número de iteración $n$
+    para cada método.}
+    \label{iteraciones} %label para referenciar con \ref{label}
+\end{figure}
+
+\section{Conclusión}
+
+\textit{En esta sección se hace un resumen de lo realizado en todo el trabajo. Se destacan los descubrimientos mas importantes. Se detallan limitaciones de los métodos. Se pueden incluir futuros pasos. }
+
+Es muy importante tener buenos métodos y el mío es el mejor.
+
+\appendix
+\section{Demostración del orden de convergencia del método}
+\label{demostracion}
+
+Te la debo.
+
+\printbibliography
+\end{multicols}
+
+apéndice
+
+A. referencia a la función de dos variables que se quiere interpolar
+\begin{equation}
+    \begin{equation}
+        f(x, y) = 0.75 \cdot e^{-\left(\frac{(10x - 2)^2}{4} + \frac{(9y - 2)^2}{4}\right)} + 0.65 \cdot e^{-\left(\frac{(9x + 1)^2}{9} + \frac{(10y + 1)^2}{2}\right)} + 0.55 \cdot e^{-\left(\frac{(9x - 6)^2}{4} + \frac{(9y - 3)^2}{4}\right)} - 0.01 \cdot e^{-\left(\frac{(9x - 7)^2}{4} + \frac{(9y - 3)^2}{4}\right)}
+    \end{equation}
+\end{equation}
+\end{document}
