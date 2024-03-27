@@ -30,7 +30,6 @@
 % \huge	
 % \Huge
 
-
 %Todo lo que está antes de begin{document} es el preámbulo
 \begin{document}
 
@@ -142,9 +141,9 @@ Como se puede observar en la figura \ref{graf4}, los splines cúbicos presentan 
 
 Para extender la interpolación a funciones de dos variables, consideraremos una función que queremos aproximar, REFERENCIA A LA FUNCION DE 2 VAR, a través de un conjunto discreto de puntos $(x_i, y_i, f(x_i, y_i))$. Utilizaremos el método de splines cúbicos para aproximar esta función y evaluaremos su rendimiento en función de la cantidad de puntos de interpolación. A continuación, se presentará la función original que queremos aproximar:
 
-\begin{figure}
+\begin{figure}[H] 
     \centering
-    % código para incluir el gráfico aquí
+    \includegraphics[width=0.5\textwidth]{graf5.png}
     \caption{Gráfico 5: de la función original de dos variables.}
     \label{graf5}
 \end{figure}
@@ -153,9 +152,9 @@ Para extender la interpolación a funciones de dos variables, consideraremos una
 
 Para aproximar la función de dos variables, utilizaremos el método de splines cúbicos y evaluaremos su rendimiento en función de la cantidad de puntos de interpolación. A continuación, se presentará el resultado de la interpolación con splines cúbicos y se comparará con la función original. Para esto, aproximamos los puntos de la coordenada $x$ e $y$ cómo funciónes dadaas por $t$ (el tiempo). Con esto, se obtienen dos funciones $x_1(t)$ y $x_2(t)$, las cuales se utilizan para interpolar la función de dos variables. Además comparamos el número de puntos que necesitamos para que la aproximación se parezca a la función original.
 
-\begin{figure}
+\begin{figure}[H] 
     \centering
-    % código para incluir el gráfico aquí
+    \includegraphics[width=0.5\textwidth]{graf6.png}
     \caption{Gráfico 6: comparacion de la función interpolada con diferentes cantidades de puntos.}
     \label{graf6}
 \end{figure}
@@ -166,9 +165,9 @@ Al analizar la figura \ref{graf6}, podemos observar que la interpolación con sp
 
 Para evaluar el error de interpolación en función de la cantidad de puntos de interpolación, presentaremos un gráfico que muestra la relación entre el error de interpolación y la cantidad de puntos utilizados en la aproximación con splines cúbicos.
 
-\begin{figure}
+\begin{figure}[H] 
     \centering
-    % código para incluir el gráfico aquí
+    \includegraphics[width=0.5\textwidth]{graf7.png}
     \caption{Gráfico 7: error de interpolación en función de la cantidad de puntos de interpolación.}
     \label{graf7}
 \end{figure}
@@ -197,7 +196,7 @@ necesita 8 iteraciones, el de punto fijo 11, y el nuevo método solo 2.
 
 \begin{figure}[H] %'H' para ubicar figura justo donde está en el .tex. 'h' para ubicarla aproximadamente donde está en .tex. 't'('b') para ubicarla al comienzo (final) de pag. 
     \centering %para que esté centrada
-    \includegraphics[width=0.5\textwidth]{metodos.png} %el ancho será el 50% del ancho del texto.
+    \includegraphics[width=0.5\textwidth]{imagen.png} %el ancho será el 50% del ancho del texto.
     \caption{Aproximación $p_n$ obtenida en función del número de iteración $n$
     para cada método.}
     \label{iteraciones} %label para referenciar con \ref{label}
